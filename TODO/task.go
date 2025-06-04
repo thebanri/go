@@ -19,7 +19,7 @@ type Task struct {
 
 var StatusData = []string{"todo", "done", "in-progress"}
 
-var fileName string = "tasks.json"
+var fileName string = "/etc/taskcli/tasks.json"
 
 func fileExist() {
 
