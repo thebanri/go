@@ -23,8 +23,13 @@ A command-line task management tool written in Go. Easily add, update, delete, a
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/thebanri/go/tree/main/TODO
-   cd task
+   git clone --filter=blob:none --no-checkout https://github.com/thebanri/go.git
+   cd go
+   git sparse-checkout init --cone
+   git sparse-checkout set TODO
+   git checkout
+   cd TODO
+
    ```
 
 2. Run the installation script:
