@@ -116,7 +116,7 @@ func UpdateStatus(statusCode, id int) {
 	}
 	WriteTasks(tasks)
 
-	fmt.Println("Task Status Updated! ", "\nGörev ID:", id)
+	fmt.Println("Task Status Updated! ", "\nTask ID:", id)
 }
 
 func NewTodo(desc string) {
@@ -138,6 +138,66 @@ func NewTodo(desc string) {
 
 }
 
+func ListDone() {
+	tasks := ReadTasks()
+	doneTasks := []Task{}
+
+	for _, task := range tasks {
+		if task.Status == "done" {
+			doneTasks = append(doneTasks, task)
+		}
+	}
+
+	if len(doneTasks) == 0 {
+		fmt.Println("No tasks marked as done.")
+		return
+	}
+
+	for _, task := range doneTasks {
+		fmt.Println("ID:", task.Id, "\nDescription:", task.Description, "\nCreated Date:", task.CreatedAt, "\nLast Updated Date:", task.UpdateAt, "\nStatus:", task.Status)
+	}
+}
+
+func ListInProgress() {
+	tasks := ReadTasks()
+	inProgressTasks := []Task{}
+
+	for _, task := range tasks {
+		if task.Status == "in-progress" {
+			inProgressTasks = append(inProgressTasks, task)
+		}
+	}
+
+	if len(inProgressTasks) == 0 {
+		fmt.Println("No tasks marked as in-progress.")
+		return
+	}
+
+	for _, task := range inProgressTasks {
+		fmt.Println("ID:", task.Id, "\nDescription:", task.Description, "\nCreated Date:", task.CreatedAt, "\nLast Updated Date:", task.UpdateAt, "\nStatus:", task.Status)
+	}
+}
+
+func ListTodo() {
+	tasks := ReadTasks()
+	todoTasks := []Task{}
+
+	for _, task := range tasks {
+		if task.Status == "todo" {
+			todoTasks = append(todoTasks, task)
+		}
+	}
+
+	if len(todoTasks) == 0 {
+		fmt.Println("No tasks to do.")
+		return
+	}
+
+	for _, task := range todoTasks {
+		fmt.Println("ID:", task.Id, "\nDescription:", task.Description, "\nCreated Date:", task.CreatedAt, "\nLast Updated Date:", task.UpdateAt, "\nStatus:", task.Status)
+	}
+}
+
 func DeleteTodo(id int) {
 
 	tasks := ReadTasks()
@@ -154,7 +214,7 @@ func DeleteTodo(id int) {
 	WriteTasks(updatedTasks)
 }
 
-func ListTodo() {
+func ListAll() {
 	tasks := ReadTasks()
 
 	for _, task := range tasks {
@@ -179,7 +239,24 @@ func main() {
 
 	switch command {
 	case "list":
-		ListTodo()
+		if argLength == 1 {
+			ListAll()
+		} else if argLength == 2 {
+			switch args[1] {
+			case "todo":
+				ListTodo()
+			case "done":
+				ListDone()
+			case "in-progress":
+				ListInProgress()
+			default:
+				fmt.Printf("Unknown list type: '%s'. Use 'task help' for usage.\n", args[1])
+				return
+			}
+		} else {
+			fmt.Println("Usage: task list [todo|done|in-progress]")
+			return
+		}
 	case "add":
 		if argLength < 2 {
 			fmt.Println("Usage: task add \"<description>\"")
