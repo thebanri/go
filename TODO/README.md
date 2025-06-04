@@ -23,7 +23,7 @@ A command-line task management tool written in Go. Easily add, update, delete, a
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/thebanri/go/TODO
+   git clone https://github.com/thebanri/go/tree/main/TODO
    cd task
    ```
 
