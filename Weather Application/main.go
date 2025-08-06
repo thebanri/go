@@ -54,7 +54,7 @@ func main() {
 		temp := weatherData.Main.Temp - 273.15
 		wind_speed := weatherData.Wind.Speed
 		fmt.Printf(
-			"\rCountry: %s | Weather: %s | Temperature: %.2f°C | Wind Speed: %.2f m/s",
+			"\rCountry: %s | Weather: %s | Temperature: %.1f°C | Wind Speed: %.2f m/s",
 			weatherData.Name,
 			strings.Title(strings.ToLower(weatherData.Weather[0].Description)),
 			math.Round(temp),
